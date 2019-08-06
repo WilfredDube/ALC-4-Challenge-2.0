@@ -2,8 +2,8 @@ package com.unbusy.travelmantics;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +22,7 @@ public class FirebaseUtils {
     public static FirebaseAuth.AuthStateListener authStateListener;
     public static ArrayList<TravelDeal> travelDeals;
     public static FirebaseUtils firebaseUtils;
-    private static boolean isAdmin;
+    public static boolean isAdmin;
 
     private FirebaseUtils(){}
 

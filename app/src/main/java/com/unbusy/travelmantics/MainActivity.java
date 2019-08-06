@@ -2,30 +2,24 @@ package com.unbusy.travelmantics;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.VisibilityAwareImageButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.view.View;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.MenuItem;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.View;
+import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import android.view.MenuItem;
+import com.google.android.material.navigation.NavigationView;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,9 +44,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (FirebaseUtils.isAdmin == true){
-//                    fab.setVisibility(View.VISIBLE);
-                }
+
 
                 // if trip list is currently open go to InsertdealActivity else go to trip list
                 if (uiState == 0) {
@@ -66,6 +58,10 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+        if (!FirebaseUtils.isAdmin){
+            fab.hide();
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -82,7 +78,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initialiseDisplayContent() {
         recyclerView = findViewById(R.id.trip_recyclerview);
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
 
         travelDealAdapter = new TravelDealAdapter();
         wishListAdapter = new WishListAdapter();
@@ -130,12 +126,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void displayTravelDeals() {
+
         toolbar.setTitle("Travel deals");
         recyclerView.setAdapter(travelDealAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-//        Toast.makeText(this, "Travel Deals", Toast.LENGTH_LONG).show();
-
 
         selectNavigationMenuItem(R.id.nav_trips);
     }
