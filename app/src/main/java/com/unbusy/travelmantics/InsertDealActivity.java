@@ -242,6 +242,7 @@ public class InsertDealActivity extends AppCompatActivity {
         tripDescription.setText("");
         tripCost.setText("");
 //        tripDiscount.setText("");
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     private void saveTravelDeal() {

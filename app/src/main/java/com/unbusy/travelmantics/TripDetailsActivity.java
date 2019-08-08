@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -110,9 +111,16 @@ public class TripDetailsActivity extends AppCompatActivity {
         if (FirebaseUtils.isAdmin){
             menu.findItem(R.id.action_trip_delete).setVisible(true);
             menu.findItem(R.id.action_favourate).setVisible(false);
+            menu.findItem(R.id.action_trip_edit).setVisible(true);
         } else {
             menu.findItem(R.id.action_trip_delete).setVisible(false);
             menu.findItem(R.id.action_favourate).setVisible(true);
+
+            if (deal.isFavourite) {
+                menu.findItem(R.id.action_favourate)
+                        .setIcon(R.drawable.ic_favorite_border_black_24dp);
+            }
+            menu.findItem(R.id.action_trip_edit).setVisible(false);
         }
         return true;
     }
@@ -168,6 +176,10 @@ public class TripDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deal.setFavourate(true);
+                DatabaseReference ref = FirebaseDatabase.getInstance()
+                        .getReference().child("wishlist")
+                        .child(FirebaseUtils.userAccount.getUserId());
+                ref.child(deal.getTid()).removeValue();
                 databaseReference.push().setValue(deal);
                 Toast.makeText(TripDetailsActivity.this, "Removed from wishlist!",
                         Toast.LENGTH_SHORT).show();
@@ -196,6 +208,9 @@ public class TripDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deal.setFavourate(true);
+                DatabaseReference ref = FirebaseDatabase.getInstance()
+                        .getReference().child("wishlist")
+                        .child(FirebaseUtils.userAccount.getUserId());
                 databaseReference.push().setValue(deal);
                 Toast.makeText(TripDetailsActivity.this,
                         "Successfully added to wishlist.", Toast.LENGTH_SHORT).show();

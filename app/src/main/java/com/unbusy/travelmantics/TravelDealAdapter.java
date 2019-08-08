@@ -190,7 +190,11 @@ public class TravelDealAdapter extends RecyclerView.Adapter<TravelDealAdapter.Tr
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             travelDeals.clear();
-            travelDeals.addAll((ArrayList) results.values);
+
+            if (results.values != null) {
+                travelDeals.addAll((ArrayList) results.values);
+            }
+
             notifyDataSetChanged();
         }
     };

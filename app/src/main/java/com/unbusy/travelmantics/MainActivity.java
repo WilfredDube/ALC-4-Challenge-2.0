@@ -26,7 +26,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final int SET_USER_REQUEST = 2000;
-    private static int uiState = 0;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -44,15 +43,6 @@ public class MainActivity extends AppCompatActivity
 
 
         fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                    Intent intent =
-                            new Intent(MainActivity.this, InsertDealActivity.class);
-                    startActivity(intent);
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -71,6 +61,7 @@ public class MainActivity extends AppCompatActivity
         if (FirebaseUtils.isAdmin) {
             hideItem();
         }
+
         recyclerView = findViewById(R.id.trip_recyclerview);
         linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
 
@@ -105,9 +96,17 @@ public class MainActivity extends AppCompatActivity
 
         if (FirebaseUtils.isAdmin) {
             hideItem();
+        } else {
+            showItem();
         }
+    }
 
-
+    private void showItem() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.my_wishlist).setVisible(true);
+        nav_Menu.findItem(R.id.my_account).setVisible(true);
+        fab.hide();
     }
 
     @Override
@@ -147,7 +146,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void displayTravelDeals() {
-
         toolbar.setTitle("Travel deals");
         recyclerView.setAdapter(travelDealAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -166,8 +164,6 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(wishListAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-//        Toast.makeText(this, "Wish list", Toast.LENGTH_LONG).show();
-
         selectNavigationMenuItem(R.id.my_wishlist);
     }
 
@@ -177,6 +173,15 @@ public class MainActivity extends AppCompatActivity
         nav_Menu.findItem(R.id.my_wishlist).setVisible(false);
         nav_Menu.findItem(R.id.my_account).setVisible(false);
         fab.show();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent =
+                        new Intent(MainActivity.this, InsertDealActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -238,14 +243,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_trips) {
-            uiState = 0;
             displayTravelDeals();
         } else if (id == R.id.my_account) {
             Intent intent = new Intent(this, AccountActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.my_wishlist) {
-            uiState = 1;
             displayWishList();
         } else if (id == R.id.logout) {
             selectNavigationMenuItem(R.id.nav_trips);
