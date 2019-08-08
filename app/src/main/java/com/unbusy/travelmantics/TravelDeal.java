@@ -13,6 +13,8 @@ public class TravelDeal implements Parcelable {
     public String tripDescription;
     public long tripCost;
     public long tripDiscount;
+    public String tripImageUrl;
+
 
 
     public int tripRating;
@@ -29,6 +31,7 @@ public class TravelDeal implements Parcelable {
         this.tripDiscount = tripDiscount;
         this.tripRating = tripRating;
         this.isFavourite = false;
+        this.tripImageUrl = null;
     }
 
     public TravelDeal(Parcel source) {
@@ -39,6 +42,16 @@ public class TravelDeal implements Parcelable {
         this.tripDescription = source.readString();
         this.tripCost = source.readLong();
         this.tripDiscount = source.readLong();
+        this.tripImageUrl = source.readString();
+        this.isFavourite = source.readByte() == 1;
+    }
+
+    public String getTripImageUrl() {
+        return tripImageUrl;
+    }
+
+    public void setTripImageUrl(String tripImageUrl) {
+        this.tripImageUrl = tripImageUrl;
     }
 
     public boolean isFavourate() {
@@ -126,6 +139,8 @@ public class TravelDeal implements Parcelable {
         dest.writeString(tripDescription);
         dest.writeLong(tripCost);
         dest.writeLong(tripDiscount);
+        dest.writeString(tripImageUrl);
+        dest.writeByte(isFavourite ? (byte) 1 : (byte) 0);
     }
 
     public static final Parcelable.Creator<TravelDeal> CREATOR =

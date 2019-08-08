@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final int SET_USER_REQUEST = 2000;
     private static int uiState = 0;
 
     private RecyclerView recyclerView;
@@ -45,23 +48,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-
-                // if trip list is currently open go to InsertdealActivity else go to trip list
-                if (uiState == 0) {
                     Intent intent =
                             new Intent(MainActivity.this, InsertDealActivity.class);
                     startActivity(intent);
-                } else {
-                    uiState = 1;
-//                    displayWishList();
-                }
-
             }
         });
-
-        if (!FirebaseUtils.isAdmin){
-            fab.hide();
-        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -77,11 +68,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initialiseDisplayContent() {
+        if (FirebaseUtils.isAdmin) {
+            hideItem();
+        }
         recyclerView = findViewById(R.id.trip_recyclerview);
         linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
 
         travelDealAdapter = new TravelDealAdapter();
-        wishListAdapter = new WishListAdapter();
 
         displayTravelDeals();
     }
@@ -96,6 +89,34 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
+        } else {
+            String userId = currentUser.getUid();
+            String email = currentUser.getEmail();
+
+            User userAccount = new User();
+            userAccount.setUserId(userId);
+            userAccount.setUserEmailAddress(email);
+            FirebaseUtils.setUserAccount(userAccount);
+//            if (FirebaseUtils.userAccount.userFirstName == null){
+//                Intent intent = new Intent(this, AccountActivity.class);
+//                startActivityForResult(intent, SET_USER_REQUEST);
+//            }
+        }
+
+        if (FirebaseUtils.isAdmin) {
+            hideItem();
+        }
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SET_USER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                // TODO : add code to handle user profile edit
+            }
         }
     }
 
@@ -141,6 +162,7 @@ public class MainActivity extends AppCompatActivity
 
     private void displayWishList() {
         toolbar.setTitle("Wish list");
+        wishListAdapter = new WishListAdapter();
         recyclerView.setAdapter(wishListAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -149,10 +171,48 @@ public class MainActivity extends AppCompatActivity
         selectNavigationMenuItem(R.id.my_wishlist);
     }
 
+    private void hideItem() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.my_wishlist).setVisible(false);
+        nav_Menu.findItem(R.id.my_account).setVisible(false);
+        fab.show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                travelDealAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    searchItem.collapseActionView();
+                    searchView.setQuery("", false);
+                    travelDealAdapter = new TravelDealAdapter();
+
+                    displayTravelDeals();
+                }
+            }
+        });
+
         return true;
     }
 
@@ -189,6 +249,7 @@ public class MainActivity extends AppCompatActivity
             displayWishList();
         } else if (id == R.id.logout) {
             selectNavigationMenuItem(R.id.nav_trips);
+            FirebaseUtils.isAdmin = false;
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);

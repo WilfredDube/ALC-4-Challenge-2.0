@@ -27,8 +27,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
+                android:fontFamily="@font/roboto"
                 android:hint="@string/category"
                 android:inputType="textPersonName"
+                android:textColor="@color/secondary_text"
                 app:layout_constraintEnd_toStartOf="@+id/insert_trip_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/insert_trip_name" />
@@ -41,8 +43,10 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:fontFamily="@font/roboto"
                 android:hint="@string/trip_name"
                 android:inputType="textPersonName"
+                android:textColor="@color/secondary_text"
                 app:layout_constraintEnd_toStartOf="@+id/insert_trip_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,9 +59,11 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:fontFamily="@font/roboto"
                 android:gravity="start|top"
                 android:hint="@string/description"
                 android:inputType="textMultiLine"
+                android:textColor="@color/secondary_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/insert_trip_country" />
@@ -68,14 +74,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:fontFamily="@font/roboto"
                 android:hint="@string/cost"
                 android:inputType="number"
-                app:layout_constraintEnd_toStartOf="@+id/insert_trip_discount"
+                android:textColor="@color/secondary_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/insert_trip_description"
-                tools:text="0" />
+                app:layout_constraintTop_toBottomOf="@+id/insert_trip_description" />
 
             <ImageView
                 android:id="@+id/insert_trip_image"
@@ -89,7 +94,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/insert_trip_category"
                 app:layout_constraintTop_toTopOf="@+id/insert_trip_name"
-                app:srcCompat="@drawable/ic_launcher_background"
+                app:srcCompat="@color/secondary_text"
                 tools:ignore="VectorDrawableCompat" />
 
             <Spinner
@@ -103,18 +108,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/insert_trip_category" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/insert_trip_discount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:ems="10"
-                android:hint="@string/discount"
-                android:inputType="number"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/insert_trip_cost"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/insert_trip_cost"
                 app:layout_constraintTop_toTopOf="@+id/insert_trip_cost" />
+
+            <TextView
+                android:id="@+id/insert_image_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_semibold"
+                android:text="@string/insert_image"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/insert_trip_image"
+                app:layout_constraintEnd_toEndOf="@+id/insert_trip_image"
+                app:layout_constraintStart_toStartOf="@+id/insert_trip_image"
+                app:layout_constraintTop_toTopOf="@+id/insert_trip_image" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

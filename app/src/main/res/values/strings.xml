@@ -23,5 +23,28 @@
     <string name="cost">Cost</string>
     <string name="trip_image">Trip Image</string>
     <string name="discount">Discount</string>
-    <string name="title_activity_account">AccountActivity</string>
+    <string name="title_activity_account">Account Settings</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="login_to_account">Login to Account</string>
+    <string name="password">Password</string>
+    <string name="need_a_new_account">Need a new account?</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="email_address">Email address</string>
+    <string name="country">Country</string>
+    <string name="create_a_new_account">Create a new Account</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="city">City</string>
+    <string name="reviews">Reviews</string>
+    <string name="insert_image">Insert Image</string>
+
+    <string-array name="discounts">
+        <item>0</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
 </resources>

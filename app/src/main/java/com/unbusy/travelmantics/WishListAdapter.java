@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishListHolder>{
-    public static final String TRAVEL_DEAL = "com.unbusy.travelmantics.TRAVEL_DEAL";
+    public static final String TRAVEL_DEAL = "com.unbusy.travelmantics.WISHLIST_TRAVEL_DEAL";
     ArrayList<TravelDeal> travelDeals;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -28,14 +28,15 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
     public WishListAdapter(){
         FirebaseUtils.openFbReference("wishlist");
         firebaseDatabase = FirebaseUtils.firebaseDatabase;
-        databaseReference = FirebaseUtils.databaseReference;
+        databaseReference = FirebaseUtils.databaseReference
+                .child(FirebaseUtils.userAccount.getUserId());
         travelDeals = FirebaseUtils.travelDeals;
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                 TravelDeal td = dataSnapshot.getValue(TravelDeal.class);
-                td.setTid(dataSnapshot.getKey().toString());
+                td.setTid(dataSnapshot.getKey());
                 travelDeals.add(td);
                 notifyItemInserted(travelDeals.size() - 1);
             }

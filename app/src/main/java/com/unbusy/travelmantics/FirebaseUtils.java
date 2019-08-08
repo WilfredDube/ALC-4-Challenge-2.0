@@ -12,6 +12,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -19,10 +22,13 @@ public class FirebaseUtils {
     public static FirebaseDatabase firebaseDatabase;
     public static DatabaseReference databaseReference;
     public static FirebaseAuth firebaseAuth;
+    public static StorageReference storageReference;
     public static FirebaseAuth.AuthStateListener authStateListener;
     public static ArrayList<TravelDeal> travelDeals;
+    public static User userAccount;
     public static FirebaseUtils firebaseUtils;
     public static boolean isAdmin;
+    private static FirebaseStorage firebaseStorage;
 
     private FirebaseUtils(){}
 
@@ -31,6 +37,9 @@ public class FirebaseUtils {
             firebaseUtils = new FirebaseUtils();
             firebaseDatabase = FirebaseDatabase.getInstance();
             firebaseAuth = FirebaseAuth.getInstance();
+
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
             authStateListener = new FirebaseAuth.AuthStateListener() {
                 @Override
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -38,6 +47,11 @@ public class FirebaseUtils {
                         FirebaseAuth.getInstance().signOut();
                     }else{
                         String userId = firebaseAuth.getUid();
+//                        String email = firebaseAuth.getCurrentUser().getEmail();
+//                        userAccount = new User();
+//                        userAccount.setUserId(userId);
+//                        userAccount.setUserEmailAddress(email);
+                        FirebaseUtils.userAccount.setUserId(firebaseAuth.getUid());
                         checkAdmin(userId);
                     }
                 }
@@ -46,6 +60,19 @@ public class FirebaseUtils {
 
         travelDeals = new ArrayList<TravelDeal>();
         databaseReference = firebaseDatabase.getReference().child(ref);
+        databaseReference.keepSynced(true);
+        connectStorage();
+    }
+
+    private static void connectStorage() {
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference("deals_pictures");
+    }
+
+    public static void setUserAccount(User userAccount) {
+        FirebaseUtils.userAccount = userAccount;
+        FirebaseUtils.userAccount.setUserId(firebaseAuth.getUid());
+        FirebaseUtils.userAccount.setUserEmailAddress(firebaseAuth.getCurrentUser().getEmail());
     }
 
     private static void checkAdmin(String userId) {

@@ -15,16 +15,17 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:fontFamily="sans-serif"
-        android:hint="Email address"
-        android:inputType="textPersonName"
+        android:fontFamily="@font/roboto"
+        android:hint="@string/email_address"
+        android:inputType="textEmailAddress"
         android:textColor="@android:color/white"
         android:textColorHint="@color/icons"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/login_password"
@@ -34,14 +35,16 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Password"
+        android:fontFamily="@font/roboto"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:textColor="@android:color/white"
         android:textColorHint="@color/icons"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_email" />
+        app:layout_constraintTop_toBottomOf="@+id/login_email"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/login_btn"
@@ -51,7 +54,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@color/colorAccent"
-        android:text="Login to Account"
+        android:fontFamily="@font/roboto"
+        android:text="@string/login_to_account"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
@@ -67,9 +71,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@android:color/white"
-        android:text="Need a new account?"
+        android:fontFamily="@font/roboto"
+        android:text="@string/need_a_new_account"
         android:textAllCaps="false"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +88,7 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_thin"
-        android:text="Welcome to"
+        android:text="@string/welcome_to"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -95,15 +100,16 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto_thin"
-        android:text="Travelmantics"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/app_name"
         android:textColor="@android:color/white"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <ProgressBar
         android:id="@+id/login_progress"

@@ -4,71 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/icons"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".AccountActivity"
-    tools:showIn="@layout/activity_account2">
+    tools:showIn="@layout/activity_account">
 
-    <EditText
-        android:id="@+id/register_firstname2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/account_profile_image"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="First name"
-        android:inputType="textPersonName"
-        android:textColor="@color/icons"
-        android:textColorHint="@color/secondary_text"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/register_lastname2"
+        android:src="@color/secondary_text"
+        app:civ_border_color="@color/secondary_text"
+        app:civ_border_width="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/register_lastname2"
+        android:id="@+id/account_firstname"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Last name"
+        android:fontFamily="@font/roboto"
+        android:hint="@string/first_name"
         android:inputType="textPersonName"
-        android:textColor="@color/icons"
+        android:textColor="@color/secondary_text"
         android:textColorHint="@color/secondary_text"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/register_firstname2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/register_firstname2"
-        app:layout_constraintTop_toTopOf="@+id/register_firstname2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toStartOf="@+id/account_lastname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_profile_image" />
 
     <EditText
-        android:id="@+id/register_email2"
-        android:layout_width="379dp"
+        android:id="@+id/account_lastname"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:fontFamily="@font/roboto"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName"
+        android:textColor="@color/secondary_text"
+        android:textColorHint="@color/secondary_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_firstname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/account_firstname"
+        app:layout_constraintTop_toTopOf="@+id/account_firstname" />
+
+    <EditText
+        android:id="@+id/account_city"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:fontFamily="@font/roboto"
+        android:hint="@string/city"
+        android:inputType="textPersonName"
+        android:textColor="@color/secondary_text"
+        android:textColorHint="@color/secondary_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_country"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/account_country"
+        app:layout_constraintTop_toTopOf="@+id/account_country" />
+
+    <Spinner
+        android:id="@+id/account_country"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/account_city"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_firstname" />
+
+    <EditText
+        android:id="@+id/account_email"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Email address"
+        android:fontFamily="@font/roboto"
+        android:hint="@string/email_address"
         android:inputType="textEmailAddress"
         android:textColor="@color/secondary_text"
         android:textColorHint="@color/secondary_text"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_firstname2" />
+        app:layout_constraintTop_toBottomOf="@+id/account_phone_number" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+    <EditText
+        android:id="@+id/account_phone_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:fontFamily="@font/roboto"
+        android:hint="Phone number"
+        android:inputType="phone"
+        android:textColor="@color/secondary_text"
+        android:textColorHint="@color/secondary_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/secondary_text" />
+        app:layout_constraintTop_toBottomOf="@+id/account_city" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
