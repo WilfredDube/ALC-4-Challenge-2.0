@@ -1,6 +1,6 @@
 # ALC-4-Challenge-2.0 (Travelmantics)
 
-Travelmantics is a practice app that I designed dduring theGoogle Africa Developer Scholarship(2019), it also is ad-free and open source.<br/>
+Travelmantics is a practice app that I designed during the Google Africa Developer Scholarship(2019), it also is ad-free and open source.<br/>
 
 <p float="left">
   <img width="250" src="https://user-images.githubusercontent.com/22616354/71959011-60923100-31fa-11ea-9b7b-1b82666a87c6.png">
