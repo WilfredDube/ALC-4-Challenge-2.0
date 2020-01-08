@@ -19,7 +19,6 @@ Travelmantics is a practice app that I designed during the Google Africa Develop
   
 </div>
 
-</br>
 #### Contributing
 
 ###### Code 
